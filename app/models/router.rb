@@ -1,23 +1,25 @@
-#does the routing
-class Router
 
+#Its should maps to the specified operations
+class Router
+  attr_reader :calculator
   def initialize calculator
     @calculator = calculator
   end
-  def map input
-    case input[0]
+
+  def map parser
+    case parser.operator
       when "add"
-        @calculator.+(input[1])
-      when "sub"
-        @calculator.-(input[1])
-      when "mul"
-        @calculator.*(input[1])
-      when "div"
-        @calculator./(input[1])
+        @calculator.+ parser.operand
+      when "subtract"
+        @calculator.- parser.operand
+      when "multiply"
+        @calculator.* parser.operand
+      when "divide"
+        @calculator./ parser.operand
       when "cancel"
-        @calculator.reset()
+        @calculator.cancel
       else
-       "Incorrect command"
+        "Incorrect Command"
     end
   end
 end

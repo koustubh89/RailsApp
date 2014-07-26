@@ -1,19 +1,30 @@
-#parses the input
+
+#Parses the input
 class Parser
+  attr_reader :operator, :operand
 
-  def initialize calculator
-    @calculator = calculator
-    @router = Router.new(calculator)
+  def initialize (operation)
+   parse operation
   end
 
-  def parse(input)
-    i = input.split(" ")
-    [i[0], i[1].to_i]
+  def ==(other)
+    return true if self.equal?(other)
+    return false if other.nil?
+    return false if other.class != self.class
+    @operator == other.operator && @operand == other.operand
   end
 
-  def operation(input)
-    parsed_input =parse(input)
-    @router.map(parsed_input)
+  def hash
+    @operator.hash*37 + @operand.hash*37
   end
-  
+
+  def eql? other
+    self == other
+  end
+  private
+  def parse operation
+    @operator, @operand = operation.split
+    @operand = @operand.to_i unless @operand.nil?
+    self
+  end
 end

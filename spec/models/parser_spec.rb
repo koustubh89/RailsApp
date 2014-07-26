@@ -1,18 +1,40 @@
-require 'rails_helper'
+require 'spec_helper'
 
-describe 'Parser' do
+describe Parser do
+  context "Equality checks" do
+    let(:parser) do
+      parser=Parser.new("add 5")
+    end
+    it "should be equal for same object id" do
+      expect(parser).to eq(parser)
+    end
 
-  let(:calculator){
-    Calculator.new({:state => 0})
-  }
+    it "should not be null" do
+      expect(parser).to_not eq(nil)
+    end
 
-  it 'should be ["add",5] for add 5' do
-      parser = Parser.new(calculator)
-      expect(parser.parse("add 5")).to eq(["add",5])
-  end
+    it "should not be equal for different type" do
+      object = Object.new
+      expect(parser).to_not eq(object)
+    end
 
-  it 'should be ["sub",5] for sub 5' do
-    parser = Parser.new(calculator)
-    expect(parser.parse("sub 5")).to eq(["sub",5])
+    it "should have same hash code" do
+      parser1 = Parser.new("add 5")
+      parser2 = Parser.new("add 5")
+      expect(parser1.hash).to eq(parser2.hash)
+    end
+
+    it "symmetric property" do
+      parser1 = Parser.new("add 5")
+      parser2 = Parser.new("add 5")
+      expect(parser1).to eq(parser2) and expect(parser2).to eq(parser1)
+    end
+
+    it "transitive property" do
+      parser1 = Parser.new("add 5")
+      parser2 = Parser.new("add 5")
+      parser3 = Parser.new("add 5")
+      expect(parser1).to eq(parser2) and expect(parser2).to eq(parser3) and expect(parser3).to eq(parser1)
+    end
   end
 end

@@ -25,7 +25,7 @@ class Calculator < ActiveRecord::Base
     self.state
   end
 
-  def reset
+  def cancel
   	self.state = 0
     self.save
     self.state

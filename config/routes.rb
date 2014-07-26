@@ -3,7 +3,14 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-   root 'welcome#index'
+   root 'calculator#index'
+
+  put 'calculator' => 'calculator#update'
+  
+  namespace :api do
+    post 'calculator' => 'calculator#create'
+    put 'calculator' => 'calculator#update'
+  end
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
