@@ -4,6 +4,13 @@
 // no method calls in constructor
 // pull out methods for anything
 
+// var C1 = new Calculator()
+// var C1 = new Calculator()
+
+//  C1.regObs(C2)
+//  C2.regObs(C1)
+
+
 $(document).ready(function(){
 	var cal1 = new Calculator("#calculator1");
 	var cal2 =new Calculator("#calculator2")
@@ -24,7 +31,7 @@ Calculator.prototype = {
 		this.calculate();
 	},
 	calculate : function (){
-		//this.observeButton();
+		this.observeButton();
 	},
 	makeCreateCall: function(type,url){
 		$.ajax({
@@ -38,9 +45,7 @@ Calculator.prototype = {
 	},
 	observeButton: function(){
 		var self = this;
-		this.button.click(function(){
-			self.processCalculation();		
-		});
+		this.button.click(_.bind(this.processCalculation, this));
 	},
 	processCalculation: function(){
 		var self = this;
@@ -57,3 +62,4 @@ Calculator.prototype = {
 	  	});
 	}
 }
+
