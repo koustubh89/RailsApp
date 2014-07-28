@@ -18,13 +18,9 @@ module Api
 
 
 	    def create
-
 	    	p 'created----------------------------------------------------------------------------'
 	    	calculator = Calculator.first || Calculator.create({:state => 0})
-	    	#head :created
-
-			redirect_to '/api/calculator', method: :put
-			#redirect_to action: 'update', status: 201
-	    end
+	    	head :created
+		end
 	end
 end

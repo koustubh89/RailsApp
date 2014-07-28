@@ -5,28 +5,42 @@ console.log("strt")
 //	alert("hi");
 
 $(document).ready(function(){
-	$("#sub").click(function(){
 
+	var calculator = Calculator()
+
+	var result = '';
+	$.ajax({
+		method: 'POST',
+		url:"/api/calculator_create",
+		success:function(result){
+			//if(result != '') console.log(result);
+    		//$("#result").html(result);
+    		console.log('called create');
+  		},
+  		error: function(){
+  			console.log('network down');
+  		}
+  	});
+
+
+	$("#sub").click(function(){
 		var command = $('#command').val();
 		console.log("something",command);
-		
 		$.ajax({
-			method: 'POST',
-			data: command,
-			url:"api/calculator",
+			method: 'PUT',
+			data: {"command": command},
+			url:"/api/calculator_update",
 			success:function(result){
 				if(result != '') console.log(result);
-	    		$("#result").html(result);
+	    		$("#result").html(result['state']);
 	  		},
 	  		error: function(){
 	  			console.log('network down');
 	  		}
-	  	});
+	  	});	
+		
 	}
 	)
 //}
 console.log('finish');
-
-$('#sp').click(function(){alert('clicked');})
-
 });

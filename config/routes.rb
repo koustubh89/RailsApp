@@ -4,13 +4,13 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   #root 'calculator#index'
-  root 'calculator#main'
+  root 'client#index'
 
   put 'calculator' => 'calculator#update'
   
   namespace :api do
-    post 'calculator' => 'calculator#create'
-    put 'calculator' => 'calculator#update'
+    post 'calculator_create' => 'calculator#create'
+    put 'calculator_update' => 'calculator#update'
   end
 
   # Example of regular route:
