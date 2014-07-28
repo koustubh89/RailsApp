@@ -1,28 +1,27 @@
 
-console.log("strt")
-
-//var call = function(){
-//	alert("hi");
-
 $(document).ready(function(){
+	var cal = new calculator("empty");
+	cal.checker();
+});
 
-	var calculator = Calculator()
-
+var calculator = function(history){
 	var result = '';
 	$.ajax({
 		method: 'POST',
-		url:"/api/calculator_create",
-		success:function(result){
+		url:"/api/calculator_create"
+		/*success:function(result){
 			//if(result != '') console.log(result);
     		//$("#result").html(result);
     		console.log('called create');
-  		},
+  		},															//	not required
   		error: function(){
   			console.log('network down');
-  		}
-  	});
+  		}*/
+  	});		
+}
 
 
+calculator.prototype.checker = function(){
 	$("#sub").click(function(){
 		var command = $('#command').val();
 		console.log("something",command);
@@ -39,8 +38,5 @@ $(document).ready(function(){
 	  		}
 	  	});	
 		
-	}
-	)
-//}
-console.log('finish');
-});
+	});
+}
