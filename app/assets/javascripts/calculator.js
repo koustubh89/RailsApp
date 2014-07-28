@@ -14,16 +14,19 @@ var Calculator = function(viewid){
 	this.command = $(viewid).find('.command');
 	this.result = $(".result");
 	this.button = $(viewid).find(".sub");
-	this.makeCall();
-	this.calculate();
+	this.initialize();
 }
 
 
 Calculator.prototype = {
-	calculate : function (){
-		this.observeButton();
+	initialize : function(){
+		this.makeCreateCall();
+		this.calculate();
 	},
-	makeCall: function(type,url){
+	calculate : function (){
+		//this.observeButton();
+	},
+	makeCreateCall: function(type,url){
 		$.ajax({
 			method: 'POST',
 			url:"/api/calculator_create"
