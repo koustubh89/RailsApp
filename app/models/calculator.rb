@@ -1,5 +1,6 @@
 #models a calculator
 class Calculator < ActiveRecord::Base
+  belongs_to :user
 
   def +(operand)
     self.state += operand

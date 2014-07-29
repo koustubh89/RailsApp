@@ -4,7 +4,7 @@ module Api
 		def update
 			p 'updated-****************************************************************************'
 	    	
-		  calculator=Calculator.first
+		  calculator=Calculator.find_by_user_id(current_user.id)
 		  if calculator
 			command = params[:command]
 			parser = Parser.new(command)
@@ -18,8 +18,10 @@ module Api
 
 
 	    def create
-	    	p 'created----------------------------------------------------------------------------'
-	    	calculator = Calculator.first || Calculator.create({:state => 0})
+	    	if Calculator.find_by_user_id(current_user.id)==nil
+		    	p 'created----------------------------------------------------------------------------'
+		    	calculator = Calculator.create({:state => 0,:user_id=>current_user.id})
+		    end
 	    	head :created
 		end
 	end
