@@ -39,9 +39,9 @@ var Calculator = function(viewid){
 
 	this.viewElement=$(viewid).clone().appendTo( "#container" );
 	console.log(viewid);
-	this.command = this.viewElement.find('#command');
-	this.result = this.viewElement.find("#result");
-	this.button = this.viewElement.find("#sub");
+	this.command = this.viewElement.find('.command');
+	this.result = this.viewElement.find(".result");
+	this.button = this.viewElement.find(".sub");
 	this.initialize();
 	this.observers = $({});
 }
