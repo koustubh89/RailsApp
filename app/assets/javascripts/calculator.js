@@ -10,26 +10,31 @@
 //	 	handle
 
 $(document).ready(function(){
-	var template =new TemplateGenerate();
+	var template =new TemplateGenerator();
 });
 
-var TemplateGenerate= function(){
+var TemplateGenerator= function(){
 	this.initialize();
 }
 
-TemplateGenerate.prototype={
+TemplateGenerator.prototype={
 	initialize: function(){
-		var calculators = [];
+		this.calculators = [];
+		this.observeClick();
+	},
+	observeClick: function(){
+		var self = this;
 		$("#gen_cal").click(function(){
 			var cal1 = new Calculator('#template #calculator1');
-			for(i=0;i<calculators.length;i++){
-				cal1.registerObservers(calculators[i]);
-			    calculators[i].registerObservers(cal1);
+			for(i=0;i<self.calculators.length;i++){
+				cal1.registerObservers(self.calculators[i]);
+			    self.calculators[i].registerObservers(cal1);
 			}
-			calculators.push(cal1);
+			self.calculators.push(cal1);
 		});
 	}
 }
+
 var Calculator = function(viewid){
 
 	this.viewElement=$(viewid).clone().appendTo( "#container" );
