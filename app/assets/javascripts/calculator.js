@@ -4,26 +4,25 @@
 // no method calls in constructor
 // pull out methods for anything
 
-// var C1 = new Calculator()
-// var C1 = new Calculator()
-
-//  C1.regObs(C2)
-//  C2.regObs(C1)
-
+// in oberserver pattern we do following 
+//	 observer/register
+//	 notify
+//	 handle
 
 $(document).ready(function(){
 	var cal1 = new Calculator("#calculator1");
-	var cal2 =new Calculator("#calculator2")
+	var cal2 =new Calculator("#calculator2");
+	cal1.registerObservers(cal2);
+	cal2.registerObservers(cal1);
 });
 
 var Calculator = function(viewid){
-	var result = '';
 	this.command = $(viewid).find('.command');
-	this.result = $(".result");
+	this.result = $(viewid).find(".result");
 	this.button = $(viewid).find(".sub");
 	this.initialize();
+	this.observers = $({});
 }
-
 
 Calculator.prototype = {
 	initialize : function(){
@@ -55,11 +54,22 @@ Calculator.prototype = {
 			url:"/api/calculator_update",
 			success: function(result){
 				self.printResult(result);
+				self.notifyObservers(result);
 	  		},
 	  		error: function(){
 	  			console.log('network down');
 	  		}
 	  	});
-	}
+	},
+	registerObservers: function(otherCalculator){
+		var self =this
+    //	this.observers.on("calculator:notiyfy", _.bind(otherCalculator.printResult, otherCalculator));
+		self.observers.on("calculator:notify",function(event,result){
+			otherCalculator.printResult(result);
+		})
+	},
+	notifyObservers: function(result){
+		var self= this
+  	    self.observers.trigger("calculator:notify",result);
+  	}
 }
-
