@@ -3,7 +3,11 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.4'
-group :development,:test do
+gem 'jslint_on_rails', group: [:development, :test]
+
+group :test do
+    gem 'simplecov', require: false, group: :test
+    gem 'metric_fu'
 	gem 'rspec-rails', '~> 3.0.0'
 	# Use sqlite3 as the database for Active Record
 	gem 'sqlite3', '1.3.8'

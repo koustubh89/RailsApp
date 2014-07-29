@@ -10,11 +10,7 @@
 //	 	handle
 
 $(document).ready(function(){
-//	var cal1 = new Calculator(".calculator");
-//	var cal2 =new Calculator("#calculator2");
-//	cal1.registerObservers(cal2);
-//	cal2.registerObservers(cal1);
-	var calculators = []
+	var calculators = [];
 	$("#gen_cal").click(function(){
 		var cal1 = new Calculator('#template #calculator1');
 		for(i=0;i<calculators.length;i++){
@@ -29,13 +25,11 @@ var Calculator = function(viewid){
 
 	this.viewElement=$(viewid).clone().appendTo( "#container" );
 	console.log(viewid);
-	this.command = this.viewElement.find('#command');
+	this.command = this.viewElement.find('#colmmand');
 	this.result = this.viewElement.find("#result");
 	this.button = this.viewElement.find("#sub");
 	this.initialize();
 	this.observers = $({});
-	
-	console.log(this.result)
 }
 
 Calculator.prototype = {
@@ -53,8 +47,8 @@ Calculator.prototype = {
   		});	
 	},
 	printResult: function(result){
-		if(result != '') console.log(result);
-  		this.result.append("<div><span>Now </span> "+result['state']+"</div>");
+		if(result != '') {console.log(result);}
+  		this.result.append("<div><span>Now </span> "+result.state+"</div>");
 	},
 	observeButton: function(){
 		var self = this;
@@ -76,7 +70,7 @@ Calculator.prototype = {
 	  	});
 	},
 	registerObservers: function(otherCalculator){
-		var self =this
+		var self =this;
     //	this.observerls.on("calculator:notiyfy", _.bind(otherCalculator.printResult, otherCalculator));
 		self.observers.on("calculator:notify",function(event,result){
 			otherCalculator.printResult(result);
