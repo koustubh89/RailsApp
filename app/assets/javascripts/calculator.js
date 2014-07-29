@@ -10,22 +10,31 @@
 //	 	handle
 
 $(document).ready(function(){
-	var calculators = [];
-	$("#gen_cal").click(function(){
-		var cal1 = new Calculator('#template #calculator1');
-		for(i=0;i<calculators.length;i++){
-			cal1.registerObservers(calculators[i]);
-		    calculators[i].registerObservers(cal1);
-		}
-		calculators.push(cal1);
-	});
+	var template =new TemplateGenerate();
 });
 
+var TemplateGenerate= function(){
+	this.initialize();
+}
+
+TemplateGenerate.prototype={
+	initialize: function(){
+		var calculators = [];
+		$("#gen_cal").click(function(){
+			var cal1 = new Calculator('#template #calculator1');
+			for(i=0;i<calculators.length;i++){
+				cal1.registerObservers(calculators[i]);
+			    calculators[i].registerObservers(cal1);
+			}
+			calculators.push(cal1);
+		});
+	}
+}
 var Calculator = function(viewid){
 
 	this.viewElement=$(viewid).clone().appendTo( "#container" );
 	console.log(viewid);
-	this.command = this.viewElement.find('#colmmand');
+	this.command = this.viewElement.find('#command');
 	this.result = this.viewElement.find("#result");
 	this.button = this.viewElement.find("#sub");
 	this.initialize();
