@@ -41,4 +41,14 @@ describe Api::CalculatorController do
     expect(response.status).to eq(201)
     expect(Calculator.count).to eq(1)
   end
+
+  it "should check if the calcultor is not created" do
+    user = User.create({:email => "test@usr.com", :encrypted_password => "12345678"})
+    sign_in :user, user
+    allow(controller).to receive(:current_user) {user}
+    # not creating a calculator and making the call to update
+    put :update ,:command => "add 5"
+    expect(response.status).to eq(404)
+  end
+
 end
